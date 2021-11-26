@@ -1,0 +1,22 @@
+[
+  {
+    "ID": 52,
+    "Name": "Docker"
+  },
+  {
+    "ID": 49,
+    "Name": "Elastic Stack"
+  },
+  {
+    "ID": 42,
+    "Name": "EPEL-7Server"
+  },
+  {
+    "ID": 48,
+    "Name": "EPEL8"
+  },
+  {
+    "ID": 71,
+    "Name": "Icinga"
+  }
+]

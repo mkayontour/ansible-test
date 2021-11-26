@@ -1,0 +1,60 @@
+# - name: collect current zones.d configs
+#   find:
+#     path: "/etc/icinga2/zones.d"
+#     recurse: yes
+#     file_type: file
+#     size: '-1'
+#     pattern: '*.conf'
+#   register: _zonesd_config
+#
+# - name: collect current conf.d configs
+#   find:
+#     path: "/etc/icinga2/conf.d"
+#     recurse: yes
+#     file_type: file
+#     pattern: '*.conf'
+#   register: _confd_config
+#   when: icinga2_confd
+#
+# - set_fact:
+#     _current_config: "{{ _confd_config.files + _zonesd_config.files }}"
+#   when: icinga2_confd
+#
+# - set_fact:
+#     _current_config: "{{ _zonesd_config.files }}"
+#   when: not icinga2_confd
+#
+# - set_fact:
+#     _deleted_conf: []
+#
+# - name: gather current config
+#   set_fact:
+#     _deleted_conf: "{{ _deleted_conf + [item.path] }}"
+#   loop: "{{ _current_config }}"
+
+# - set_fact:
+#     _tmp_conf: []
+# - set_fact:
+#     _tmp_conf: "{{ _tmp_conf + [item.path|regex_replace('^'+icinga2_fragments_path, '/etc/icinga2')] }}"
+#   loop: "{{ result.files }}"
+#
+# - debug:
+#     var: _tmp_conf
+#
+# - name: gather target state config
+#   set_fact:
+#     _tmp_conf: "{{ _tmp_conf | select('match', '(/etc/icinga2/zones.d/|/etc/icinga2/conf.d/)') | list }}"
+#
+# - name: soll config
+#   debug:
+#     var: _tmp_conf
+#
+# - name: generate list of unused config
+#   set_fact:
+#     _deleted_conf: "{{ _current_conf | difference(_tmp_conf) | list }}"
+
+#- name: remove undefined monitoring config
+#  file:
+#    state: absent
+#    path: "{{ item }}"
+#  loop: "{{ _deleted_conf }}"

@@ -1,0 +1,9 @@
+- hosts: localhost
+  tasks:
+    - command: cat test_json
+      register: out
+
+    - debug:
+        var: item.Name
+      loop: "{{ out.stdout | from_json }}"
+
